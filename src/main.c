@@ -3,6 +3,12 @@
 #include <float.h>
 #include <compress.h>
 
+
+
+
+
+
+
 double fabs(double x) {
   double y;
   if (x<0) y = -x; else y =x;
