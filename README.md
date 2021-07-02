@@ -1,6 +1,6 @@
 
 
-Blaz 1.0
+Blaz 1.1
 Written by Matthieu Martel (matthieu.martel@univ-perp.fr)
 
 Blaz is a library for frugal matrix computations. Blaz provides

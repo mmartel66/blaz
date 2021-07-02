@@ -1,10 +1,19 @@
+/*******************************************************
+ * This file is part of the Blaz library
+ * @Name ........ : operations.c
+ * @Role ........ : operations on matrices
+ * @Author ...... : Matthieu Martel
+ * @Version ..... : V1.1 06/30/2021
+ * @Licence ..... : GPL V3
+ * @Link ........ : https://github.com/mmartel66/blaz.git
+ ********************************************************/
 
 #include <stdlib.h>
 #include <math.h>
 #include <blaz.h>
 
 
-Blaz_Matrix *add(Blaz_Matrix *matrix_1, Blaz_Matrix *matrix_2) {
+Blaz_Matrix *blaz_add(Blaz_Matrix *matrix_1, Blaz_Matrix *matrix_2) {
   int i, j;
   Blaz_Matrix *result_matrix;
 
@@ -22,7 +31,7 @@ Blaz_Matrix *add(Blaz_Matrix *matrix_1, Blaz_Matrix *matrix_2) {
 }
 
 
-Blaz_Matrix *mul_cst(Blaz_Matrix *matrix, double cst) {
+Blaz_Matrix *blaz_mul_cst(Blaz_Matrix *matrix, double cst) {
   int i, j;
   Blaz_Matrix *result_matrix;
 
@@ -40,7 +49,7 @@ Blaz_Matrix *mul_cst(Blaz_Matrix *matrix, double cst) {
 }
 
 
-Blaz_Compressed_Matrix *add_compressed(Blaz_Compressed_Matrix *matrix_1, Blaz_Compressed_Matrix *matrix_2) {
+Blaz_Compressed_Matrix *blaz_add_compressed(Blaz_Compressed_Matrix *matrix_1, Blaz_Compressed_Matrix *matrix_2) {
   int i, j, k;
   double coef_1, coef_2;
   Blaz_Compressed_Matrix *result_matrix;
@@ -62,8 +71,8 @@ Blaz_Compressed_Matrix *add_compressed(Blaz_Compressed_Matrix *matrix_1, Blaz_Co
   k = 0;
 
   for(i=0; i < result_matrix->width * result_matrix->height / (BLOCK_SIZE * BLOCK_SIZE); i++) {
-    coef_1 = ((matrix_1->block_mean_slope)[i]) / ((matrix_1->block_mean_slope)[i] + (matrix_2->block_mean_slope)[i]);
-    coef_2 = ((matrix_2->block_mean_slope)[i]) / ((matrix_1->block_mean_slope)[i] + (matrix_2->block_mean_slope)[i]);
+    coef_1 = matrix_1->block_mean_slope[i] / (matrix_1->block_mean_slope[i] + matrix_2->block_mean_slope[i]);
+    coef_2 = matrix_2->block_mean_slope[i] / (matrix_1->block_mean_slope[i] + matrix_2->block_mean_slope[i]);
     result_matrix->compressed_values[k] = (s_8)(round((matrix_1->compressed_values[k] * matrix_2->compressed_values[k])
                                                     / (matrix_1->compressed_values[k] + matrix_2->compressed_values[k])));
     coef_1 = coef_1 / matrix_1->compressed_values[k] * result_matrix->compressed_values[k];
@@ -77,27 +86,39 @@ Blaz_Compressed_Matrix *add_compressed(Blaz_Compressed_Matrix *matrix_1, Blaz_Co
     }
   }
 
-/*
-  for(i=0; i <result_matrix->width * result_matrix->height / (BLOCK_SIZE * BLOCK_SIZE); i++) {
-    if (matrix_1->block_mean_slope[i] > matrix_2->block_mean_slope[i]) {
-      (result_matrix->block_mean_slope)[i] = (matrix_1->block_mean_slope)[i];
-      coef_1 = (matrix_2->block_mean_slope[i]) / (matrix_1->block_mean_slope[i]);
-      for(j=0; j<COMPRESSED_VECTOR_SIZE; j++) {
-        (result_matrix->compressed_values)[k] = (s_8)((double)(matrix_1->compressed_values)[k] + coef_1 * (double)(matrix_2->compressed_values)[k]);
-printf(">>>%d + %f * %d = %d \n",matrix_1->compressed_values[k],coef_1,matrix_2->compressed_values[k],result_matrix->compressed_values[k]);
-        k++;
-      }
-    } else {
-      (result_matrix->block_mean_slope)[i] = (matrix_2->block_mean_slope)[i];
-      coef_1 = (matrix_1->block_mean_slope[i]) / (matrix_2->block_mean_slope[i]);
-      for(j=0; j<COMPRESSED_VECTOR_SIZE; j++) {
-        (result_matrix->compressed_values)[k] = (s_8)((double)(matrix_2->compressed_values)[k] + coef_1 * (double)(matrix_1->compressed_values)[k]);
-        printf(">>>%d + %f * %d = %d \n",matrix_2->compressed_values[k],coef_1,matrix_1->compressed_values[k],result_matrix->compressed_values[k]);
+  return result_matrix;
+}
 
-        k++;
-      }
+
+
+Blaz_Compressed_Matrix *blaz_mul_cst_compressed(Blaz_Compressed_Matrix *matrix, double cst) {
+  int i, j, k;
+  Blaz_Compressed_Matrix *result_matrix;
+
+  result_matrix = (Blaz_Compressed_Matrix*)malloc(sizeof(Blaz_Compressed_Matrix));
+
+  result_matrix->width = matrix->width;
+  result_matrix->height = matrix->height;
+
+  result_matrix->block_first_elts = (double*)malloc(result_matrix->width * result_matrix->height / (BLOCK_SIZE * BLOCK_SIZE) * sizeof(double));
+  result_matrix->block_mean_slope = (double*)malloc(result_matrix->width * result_matrix->height / (BLOCK_SIZE * BLOCK_SIZE) * sizeof(double));
+  result_matrix->compressed_values = (s_8*)malloc(result_matrix->width * result_matrix->height * COMPRESSED_VECTOR_SIZE / (BLOCK_SIZE * BLOCK_SIZE) * sizeof(s_8));
+
+  for(i=0; i<result_matrix->width * result_matrix->height / (BLOCK_SIZE * BLOCK_SIZE); i++) {
+    result_matrix->block_first_elts[i] = matrix->block_first_elts[i] * cst;
+    result_matrix->block_mean_slope[i] = matrix->block_mean_slope[i] * cst;
+  }
+
+  k = 0;
+
+  for(i=0; i < result_matrix->width * result_matrix->height / (BLOCK_SIZE * BLOCK_SIZE); i++) {
+    result_matrix->compressed_values[k] = matrix->compressed_values[k];
+    k++;
+    for(j=1; j<COMPRESSED_VECTOR_SIZE; j++) {
+      result_matrix->compressed_values[k] = matrix->compressed_values[k];
+      k++;
     }
-  }*/
+  }
 
   return result_matrix;
 }

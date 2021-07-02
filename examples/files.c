@@ -1,9 +1,16 @@
-
-
-// IO: read, compress, write, read again, uncompress a matrix.
-// File name given as argument in the command line (argv[1]).
-// Comparison of the original and uncompressed matrices.
-
+/*******************************************************
+ * This file is part of the Blaz library
+ * @Name ........ : files.c
+ * @Role ........ : IO: read, compress, write, read again,
+                    uncompress a matrix. File name given
+                    as argument in the command line (argv[1]).
+                    Comparison of the original and
+                    uncompressed matrices.
+ * @Author ...... : Matthieu Martel
+ * @Version ..... : V1.1 06/30/2021
+ * @Licence ..... : GPL V3
+ * @Link ........ : https://github.com/mmartel66/blaz.git
+ ********************************************************/
 
 #include <stdio.h>
 #include <blaz.h>

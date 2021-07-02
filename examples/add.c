@@ -1,9 +1,17 @@
-
-
-// Addition of two matrices given in files.
-// File names given as arguments in the command line (argv[1] and argv[2]).
-// Comparison between the addition of uncompressed matrices and the addition of corresponding compressed matrices.
-
+/*******************************************************
+ * This file is part of the Blaz library
+ * @Name ........ : add.c
+ * @Role ........ : Addition of two matrices given in files.
+                    File names given as arguments in the
+                    command line (argv[1] and argv[2]).
+                    Comparison between the addition of
+                    uncompressed matrices and the addition of
+                    corresponding compressed matrices.
+ * @Author ...... : Matthieu Martel
+ * @Version ..... : V1.1 06/30/2021
+ * @Licence ..... : GPL V3
+ * @Link ........ : https://github.com/mmartel66/blaz.git
+ ********************************************************/
 
 #include <stdio.h>
 #include <float.h>
@@ -33,8 +41,8 @@ int main(int argc, char **argv) {
   compressed_matrix_1 = blaz_compress(matrix_1);
   compressed_matrix_2 = blaz_compress(matrix_2);
 
-  result_matrix = add(matrix_1, matrix_2);
-  compressed_result_matrix = add_compressed(compressed_matrix_1, compressed_matrix_2);
+  result_matrix = blaz_add(matrix_1, matrix_2);
+  compressed_result_matrix = blaz_add_compressed(compressed_matrix_1, compressed_matrix_2);
 
   uncompressed_matrix_1 = blaz_uncompress(compressed_matrix_1);
   uncompressed_matrix_2 = blaz_uncompress(compressed_matrix_2);

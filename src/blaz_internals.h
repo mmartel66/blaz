@@ -1,7 +1,14 @@
+/*******************************************************
+ * This file is part of the Blaz library
+ * @Name ........ : blaz_internals.h
+ * @Role ........ : interface for internal functions
+ * @Author ...... : Matthieu Martel
+ * @Version ..... : V1.1 06/30/2021
+ * @Licence ..... : GPL V3
+ * @Link ........ : https://github.com/mmartel66/blaz.git
+ ********************************************************/
 
 typedef signed short s_8;
-typedef unsigned short int u_16;
-typedef unsigned long int u_64;
 
 
 #define POS(X,Y,WIDTH) (X + (Y) * WIDTH)

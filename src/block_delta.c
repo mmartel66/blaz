@@ -1,3 +1,12 @@
+/*******************************************************
+ * This file is part of the Blaz library
+ * @Name ........ : block_delta.c
+ * @Role ........ : normalization during the compression.
+ * @Author ...... : Matthieu Martel
+ * @Version ..... : V1.1 06/30/2021
+ * @Licence ..... : GPL V3
+ * @Link ........ : https://github.com/mmartel66/blaz.git
+ ********************************************************/
 
 #include <blaz.h>
 

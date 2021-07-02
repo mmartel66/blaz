@@ -1,4 +1,12 @@
-
+/*******************************************************
+ * This file is part of the Blaz library
+ * @Name ........ : blaz.h
+ * @Role ........ : interface of the blaz library
+ * @Author ...... : Matthieu Martel
+ * @Version ..... : V1.1 06/30/2021
+ * @Licence ..... : GPL V3
+ * @Link ........ : https://github.com/mmartel66/blaz.git
+ ********************************************************/
 
 #include<blaz_internals.h>
 
@@ -32,6 +40,11 @@ Blaz_Matrix* blaz_uncompress(Blaz_Compressed_Matrix*);
 
 
 
-Blaz_Matrix *add(Blaz_Matrix*, Blaz_Matrix*);
+Blaz_Matrix *blaz_add(Blaz_Matrix*, Blaz_Matrix*);
 
-Blaz_Compressed_Matrix *add_compressed(Blaz_Compressed_Matrix*, Blaz_Compressed_Matrix*);
+Blaz_Compressed_Matrix *blaz_add_compressed(Blaz_Compressed_Matrix*, Blaz_Compressed_Matrix*);
+
+
+Blaz_Matrix *blaz_mul_cst(Blaz_Matrix*, double);
+
+Blaz_Compressed_Matrix *blaz_mul_cst_compressed(Blaz_Compressed_Matrix*, double);

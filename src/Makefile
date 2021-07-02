@@ -1,9 +1,9 @@
 
 CC = gcc
 
-ODIR = obj
+ODIR = ../obj
 
-BINDIR = bin
+BINDIR = ../bin
 
 EXDIR = ../examples
 
@@ -14,12 +14,19 @@ CFLAGS := -I.
 OBJ = $(ODIR)/block_delta.o $(ODIR)/block_slope.o $(ODIR)/dct.o $(ODIR)/io.o $(ODIR)/compress.o $(ODIR)/operations.o
 
 OBJADD = $(OBJ) $(ODIR)/add.o
+OBJMULCST = $(OBJ) $(ODIR)/mul_cst.o
+OBJFILES = $(OBJ) $(ODIR)/files.o
 
-compress: $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 
 add: $(OBJADD)
 		$(CC) -o $(BINDIR)/$@ $^ $(CFLAGS) $(LIBS)
+
+mul_cst: $(OBJMULCST)
+		$(CC) -o $(BINDIR)/$@ $^ $(CFLAGS) $(LIBS)
+
+files: $(OBJFILES)
+		$(CC) -o $(BINDIR)/$@ $^ $(CFLAGS) $(LIBS)
+
 
 
 $(ODIR)/%.o: %.c
@@ -28,9 +35,15 @@ $(ODIR)/%.o: %.c
 $(ODIR)/add.o: $(EXDIR)/add.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
+$(ODIR)/mul_cst.o: $(EXDIR)/mul_cst.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(ODIR)/files.o: $(EXDIR)/files.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
 
 clean:
 	rm -rf $(ODIR)/*.o
 	rm -rf $(BINDIR)/*
 
-all: clean add
+all: clean add mul_cst files

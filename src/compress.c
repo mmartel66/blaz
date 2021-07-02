@@ -1,3 +1,13 @@
+/*******************************************************
+ * This file is part of the Blaz library
+ * @Name ........ : io.c
+ * @Role ........ : main functions for compression and
+                    uncompression
+ * @Author ...... : Matthieu Martel
+ * @Version ..... : V1.1 06/30/2021
+ * @Licence ..... : GPL V3
+ * @Link ........ : https://github.com/mmartel66/blaz.git
+ ********************************************************/
 
 #include <stdlib.h>
 #include <blaz.h>
@@ -58,6 +68,6 @@ Blaz_Matrix *blaz_uncompress(Blaz_Compressed_Matrix *compressed_matrix) {
       l += COMPRESSED_VECTOR_SIZE;
     }
   }
-  
+
   return matrix;
 }
