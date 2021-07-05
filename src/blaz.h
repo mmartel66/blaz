@@ -48,3 +48,8 @@ Blaz_Compressed_Matrix *blaz_add_compressed(Blaz_Compressed_Matrix*, Blaz_Compre
 Blaz_Matrix *blaz_mul_cst(Blaz_Matrix*, double);
 
 Blaz_Compressed_Matrix *blaz_mul_cst_compressed(Blaz_Compressed_Matrix*, double);
+
+
+double blaz_dot_product(Blaz_Matrix*, Blaz_Matrix*, int, int);
+
+double blaz_dot_product_compressed(Blaz_Compressed_Matrix*, Blaz_Compressed_Matrix*, int, int);
