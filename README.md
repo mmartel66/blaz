@@ -10,7 +10,9 @@ compressed matrices, without uncompressing them.
 
 The interface is given in the file blaz.h
 
-To compile, run make all in the blaz parent directory.
+*** INSTALL:
+To compile, run "make all" in the blaz parent directory.
+
 
 This file is part of Blaz.  Blaz is free software: you can
 redistribute it and/or modify it under the terms of the GNU General
