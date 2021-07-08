@@ -13,6 +13,28 @@
 #include <blaz.h>
 
 
+double blaz_get_compressed_matrix_elt(Blaz_Compressed_Matrix *compressed_matrix, int column, int line) {
+  int block_x, block_y, offset_x, offset_y, block_number;
+  double slope_block, delta_block, uncompressed_block;
+
+  block_x = column / BLOCK_SIZE;
+  block_y = line / BLOCK_SIZE;
+  offset_x = column % BLOCK_SIZE;
+  offset_y = line % BLOCK_SIZE;
+  block_number = block_y * compressed_matrix->width / BLOCK_SIZE + block_x;
+
+  delta_block = (double*)malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
+  slope_block = (double*)malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
+  uncompressed_block = (double*)malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
+
+  idct(slope_block, compressed_matrix->compressed_values, block_number * COMPRESSED_VECTOR_SIZE);
+  block_unslope(slope_block, delta_block, compressed_matrix->block_mean_slope[block_number]);
+  block_undelta(delta_block, uncompressed_block, compressed_matrix->block_first_elts[block_number], 0, 0, BLOCK_SIZE);
+
+  return uncompressed_block[POS(offset_x, offset_y, BLOCK_SIZE)];
+}
+
+
 Blaz_Compressed_Matrix *blaz_add_compressed(Blaz_Compressed_Matrix *matrix_1, Blaz_Compressed_Matrix *matrix_2) {
   int i, j, k;
   double coef_1, coef_2;

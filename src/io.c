@@ -14,7 +14,7 @@
 #include <string.h>
 #include <blaz.h>
 
-Blaz_Matrix *read_blaz_matrix(char *file_name) {
+Blaz_Matrix *blaz_read_matrix(char *file_name) {
   FILE *file;
   int width, height;
   Blaz_Matrix *matrix;
@@ -36,7 +36,7 @@ Blaz_Matrix *read_blaz_matrix(char *file_name) {
 }
 
 
-void write_blaz_matrix(char *file_name, Blaz_Matrix *matrix) {
+void blaz_write_matrix(char *file_name, Blaz_Matrix *matrix) {
   FILE *file;
 
   file = fopen(file_name,"w");
@@ -49,7 +49,7 @@ void write_blaz_matrix(char *file_name, Blaz_Matrix *matrix) {
 }
 
 
-Blaz_Compressed_Matrix *read_blaz_compressed_matrix(char *file_name) {
+Blaz_Compressed_Matrix *blaz_read_compressed_matrix(char *file_name) {
   Blaz_Compressed_Matrix *compressed_matrix;
   FILE *file;
   char *compressed_file_name;
@@ -84,7 +84,7 @@ Blaz_Compressed_Matrix *read_blaz_compressed_matrix(char *file_name) {
 }
 
 
-void write_blaz_compressed_matrix(char *file_name, Blaz_Compressed_Matrix *compressed_matrix) {
+void blaz_write_compressed_matrix(char *file_name, Blaz_Compressed_Matrix *compressed_matrix) {
   FILE *file;
   char *compressed_file_name;
 

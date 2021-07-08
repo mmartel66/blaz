@@ -24,20 +24,24 @@ typedef struct {
 } Blaz_Compressed_Matrix;
 
 
-Blaz_Matrix *read_blaz_matrix(char*);
+double blaz_get_matrix_elt(Blaz_Matrix*, int, int);
 
-void write_blaz_matrix(char *, Blaz_Matrix*);
+void blaz_set_matrix_elt(Blaz_Matrix*, double, int, int);
 
 
-Blaz_Compressed_Matrix *read_blaz_compressed_matrix(char *);
+Blaz_Matrix *blaz_read_matrix(char*);
 
-void write_blaz_compressed_matrix(char*, Blaz_Compressed_Matrix*);
+void blaz_write_matrix(char *, Blaz_Matrix*);
+
+
+Blaz_Compressed_Matrix *blaz_read_compressed_matrix(char *);
+
+void blaz_write_compressed_matrix(char*, Blaz_Compressed_Matrix*);
 
 
 Blaz_Compressed_Matrix *blaz_compress(Blaz_Matrix*);
 
 Blaz_Matrix* blaz_uncompress(Blaz_Compressed_Matrix*);
-
 
 
 Blaz_Matrix *blaz_add(Blaz_Matrix*, Blaz_Matrix*);
@@ -53,3 +57,6 @@ Blaz_Compressed_Matrix *blaz_mul_cst_compressed(Blaz_Compressed_Matrix*, double)
 double blaz_dot_product(Blaz_Matrix*, Blaz_Matrix*, int, int);
 
 double blaz_dot_product_compressed(Blaz_Compressed_Matrix*, Blaz_Compressed_Matrix*, int, int);
+
+
+Blaz_Matrix *blaz_matrix_mul(Blaz_Matrix*, Blaz_Matrix*);

@@ -37,9 +37,9 @@ void block_undelta(double *matrix, double *result_matrix, double delta_block_fir
 
   for(i=1; i<BLOCK_SIZE; i++) {
     result_matrix[POS(block_x + i, block_y, matrix_width)] = result_matrix[POS(block_x + i - 1, block_y, matrix_width)]
-                                                           + matrix[POS(i, 0, BLOCK_SIZE)] ;
+                                                           + matrix[POS(i, 0, BLOCK_SIZE)];
     result_matrix[POS(block_x, block_y + i, matrix_width)] = result_matrix[POS(block_x, block_y + i - 1, matrix_width)]
-                                                           + matrix[POS(0, i, BLOCK_SIZE)] ;
+                                                           + matrix[POS(0, i, BLOCK_SIZE)];
   }
 
   for(i=1; i<BLOCK_SIZE; i++) {

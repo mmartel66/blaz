@@ -13,6 +13,16 @@
 #include <blaz.h>
 
 
+double blaz_get_matrix_elt(Blaz_Matrix *matrix, int column, int line) {
+  return matrix->matrix[POS(column, line, matrix->width)];
+}
+
+
+void blaz_set_matrix_elt(Blaz_Matrix *matrix, double elt, int column, int line) {
+  matrix->matrix[POS(column, line, matrix->width)] = elt;
+}
+
+
 Blaz_Matrix *blaz_add(Blaz_Matrix *matrix_1, Blaz_Matrix *matrix_2) {
   int i, j;
   Blaz_Matrix *result_matrix;
@@ -58,6 +68,26 @@ double blaz_dot_product(Blaz_Matrix *matrix_1, Blaz_Matrix *matrix_2, int line, 
   for(i=0; i<matrix_1->width; i++) {
       result += matrix_1->matrix[POS(i, line, matrix_1->width)] * matrix_2->matrix[POS(column, i, matrix_2->width)];
   }
-  
+
   return result;
+}
+
+
+Blaz_Matrix *blaz_matrix_mul(Blaz_Matrix *matrix_1, Blaz_Matrix *matrix_2) {
+  int i,j;
+  Blaz_Matrix *result_matrix;
+
+  result_matrix = (Blaz_Matrix*)malloc(sizeof(Blaz_Matrix));
+  result_matrix->matrix = (double*)malloc(matrix_1->height * matrix_2->width * sizeof(double));
+
+  result_matrix->width = matrix_2->width;
+  result_matrix->height = matrix_1->height;
+
+  for(i=0; i<matrix_1->height; i++) {
+    for(j=0; j<matrix_2->width; j++) {
+      result_matrix->matrix[POS(j, i, result_matrix->width)] = blaz_dot_product(matrix_1, matrix_2, i, j);
+    }
+  }
+
+  return result_matrix;
 }
