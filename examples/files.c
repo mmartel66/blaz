@@ -7,7 +7,7 @@
                     Comparison of the original and
                     uncompressed matrices.
  * @Author ...... : Matthieu Martel
- * @Version ..... : V1.1 06/30/2021
+ * @Version ..... : V1.1 07/08/2021
  * @Licence ..... : GPL V3
  * @Link ........ : https://github.com/mmartel66/blaz.git
  ********************************************************/
@@ -21,13 +21,13 @@ int main(int argc, char **argv) {
   Blaz_Matrix *matrix, *uncompressed_matrix;
   Blaz_Compressed_Matrix *compressed_matrix_1, *compressed_matrix_2;
 
-  matrix = read_blaz_matrix(argv[1]);
+  matrix = blaz_read_matrix(argv[1]);
 
   compressed_matrix_1 = blaz_compress(matrix);
 
-  write_blaz_compressed_matrix(argv[1], compressed_matrix_1);
+  blaz_write_compressed_matrix(argv[1], compressed_matrix_1);
 
-  compressed_matrix_2 = read_blaz_compressed_matrix(argv[1]);
+  compressed_matrix_2 = blaz_read_compressed_matrix(argv[1]);
 
   uncompressed_matrix = blaz_uncompress(compressed_matrix_2);
 

@@ -43,7 +43,7 @@ double *dct_block_matrix_multiply(double *block, double *matrix) {
   double res;
   int i,j,k;
 
-  result_block = (double*)malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
+  result_block = (double*)blaz_malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
 
   for(i=0; i<BLOCK_SIZE; i++) {
     for(j=0; j<BLOCK_SIZE; j++) {
@@ -65,8 +65,8 @@ void dct_matrix_block_multiply(double *block, double *matrix, s_8 *quantize_vect
   double max_elt, res;
   int i, j, k;
 
-  tmp_block = (double*)malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
-  result_block = (s_8*)malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(s_8));
+  tmp_block = (double*)blaz_malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
+  result_block = (s_8*)blaz_malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(s_8));
   max_elt = DBL_MIN;
 
   for(i=0; i<BLOCK_SIZE; i++) {
@@ -145,8 +145,8 @@ void idct(double *matrix, s_8 *quantized_vector, int offset) {
   double quantize_coef;
   int i, j, k;
 
-  block_0 = (double*)malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
-  block_1 = (double*)malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
+  block_0 = (double*)blaz_malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
+  block_1 = (double*)blaz_malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
 
   quantize_coef = (double)quantized_vector[offset];
 

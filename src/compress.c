@@ -19,13 +19,13 @@ Blaz_Compressed_Matrix *blaz_compress(Blaz_Matrix *matrix) {
   Blaz_Compressed_Matrix *result_matrix;
 
   k = l = 0;
-  delta_block = (double*)malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
-  slope_block = (double*)malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
+  delta_block = (double*)blaz_malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
+  slope_block = (double*)blaz_malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
 
-  result_matrix = (Blaz_Compressed_Matrix*)malloc(sizeof(Blaz_Compressed_Matrix));
-  result_matrix->block_first_elts = (double*)malloc(matrix->width * matrix->height * sizeof(double) / (BLOCK_SIZE * BLOCK_SIZE));
-  result_matrix->block_mean_slope = (double*)malloc(matrix->width * matrix->height * sizeof(double) / (BLOCK_SIZE * BLOCK_SIZE));
-  result_matrix->compressed_values = (s_8*)malloc(matrix->width * matrix->height * COMPRESSED_VECTOR_SIZE * sizeof(s_8) / (BLOCK_SIZE * BLOCK_SIZE));
+  result_matrix = (Blaz_Compressed_Matrix*)blaz_malloc(sizeof(Blaz_Compressed_Matrix));
+  result_matrix->block_first_elts = (double*)blaz_malloc(matrix->width * matrix->height * sizeof(double) / (BLOCK_SIZE * BLOCK_SIZE));
+  result_matrix->block_mean_slope = (double*)blaz_malloc(matrix->width * matrix->height * sizeof(double) / (BLOCK_SIZE * BLOCK_SIZE));
+  result_matrix->compressed_values = (s_8*)blaz_malloc(matrix->width * matrix->height * COMPRESSED_VECTOR_SIZE * sizeof(s_8) / (BLOCK_SIZE * BLOCK_SIZE));
 
   result_matrix->width = matrix->width;
   result_matrix->height = matrix->height;
@@ -49,15 +49,15 @@ Blaz_Matrix *blaz_uncompress(Blaz_Compressed_Matrix *compressed_matrix) {
   double *delta_block, *slope_block;
   Blaz_Matrix *matrix;
 
-  matrix = (Blaz_Matrix*)malloc(sizeof(Blaz_Matrix));
+  matrix = (Blaz_Matrix*)blaz_malloc(sizeof(Blaz_Matrix));
   matrix->width = compressed_matrix->width;
   matrix->height = compressed_matrix->height;
 
   k = l = 0;
-  matrix->matrix = (double*)malloc(matrix->width * matrix->height * sizeof(double));
+  matrix->matrix = (double*)blaz_malloc(matrix->width * matrix->height * sizeof(double));
 
-  delta_block = (double*)malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
-  slope_block = (double*)malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
+  delta_block = (double*)blaz_malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
+  slope_block = (double*)blaz_malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
 
   for(i=0; i<matrix->height; i+=BLOCK_SIZE) {
     for(j=0; j<matrix->width; j+=BLOCK_SIZE) {

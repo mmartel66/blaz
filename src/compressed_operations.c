@@ -15,7 +15,7 @@
 
 double blaz_get_compressed_matrix_elt(Blaz_Compressed_Matrix *compressed_matrix, int column, int line) {
   int block_x, block_y, offset_x, offset_y, block_number;
-  double slope_block, delta_block, uncompressed_block;
+  double *slope_block, *delta_block, *uncompressed_block;
 
   block_x = column / BLOCK_SIZE;
   block_y = line / BLOCK_SIZE;
@@ -23,9 +23,9 @@ double blaz_get_compressed_matrix_elt(Blaz_Compressed_Matrix *compressed_matrix,
   offset_y = line % BLOCK_SIZE;
   block_number = block_y * compressed_matrix->width / BLOCK_SIZE + block_x;
 
-  delta_block = (double*)malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
-  slope_block = (double*)malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
-  uncompressed_block = (double*)malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
+  delta_block = (double*)blaz_malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
+  slope_block = (double*)blaz_malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
+  uncompressed_block = (double*)blaz_malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
 
   idct(slope_block, compressed_matrix->compressed_values, block_number * COMPRESSED_VECTOR_SIZE);
   block_unslope(slope_block, delta_block, compressed_matrix->block_mean_slope[block_number]);
@@ -40,14 +40,14 @@ Blaz_Compressed_Matrix *blaz_add_compressed(Blaz_Compressed_Matrix *matrix_1, Bl
   double coef_1, coef_2;
   Blaz_Compressed_Matrix *result_matrix;
 
-  result_matrix = (Blaz_Compressed_Matrix*)malloc(sizeof(Blaz_Compressed_Matrix));
+  result_matrix = (Blaz_Compressed_Matrix*)blaz_malloc(sizeof(Blaz_Compressed_Matrix));
 
   result_matrix->width = matrix_1->width;
   result_matrix->height = matrix_1->height;
 
-  result_matrix->block_first_elts = (double*)malloc(result_matrix->width * result_matrix->height / (BLOCK_SIZE * BLOCK_SIZE) * sizeof(double));
-  result_matrix->block_mean_slope = (double*)malloc(result_matrix->width * result_matrix->height / (BLOCK_SIZE * BLOCK_SIZE) * sizeof(double));
-  result_matrix->compressed_values = (s_8*)malloc(result_matrix->width * result_matrix->height * COMPRESSED_VECTOR_SIZE / (BLOCK_SIZE * BLOCK_SIZE) * sizeof(s_8));
+  result_matrix->block_first_elts = (double*)blaz_malloc(result_matrix->width * result_matrix->height / (BLOCK_SIZE * BLOCK_SIZE) * sizeof(double));
+  result_matrix->block_mean_slope = (double*)blaz_malloc(result_matrix->width * result_matrix->height / (BLOCK_SIZE * BLOCK_SIZE) * sizeof(double));
+  result_matrix->compressed_values = (s_8*)blaz_malloc(result_matrix->width * result_matrix->height * COMPRESSED_VECTOR_SIZE / (BLOCK_SIZE * BLOCK_SIZE) * sizeof(s_8));
 
   for(i=0; i<result_matrix->width * result_matrix->height / (BLOCK_SIZE * BLOCK_SIZE); i++) {
     result_matrix->block_first_elts[i] = matrix_1->block_first_elts[i] + matrix_2->block_first_elts[i];
@@ -80,14 +80,14 @@ Blaz_Compressed_Matrix *blaz_mul_cst_compressed(Blaz_Compressed_Matrix *matrix, 
   int i, j, k;
   Blaz_Compressed_Matrix *result_matrix;
 
-  result_matrix = (Blaz_Compressed_Matrix*)malloc(sizeof(Blaz_Compressed_Matrix));
+  result_matrix = (Blaz_Compressed_Matrix*)blaz_malloc(sizeof(Blaz_Compressed_Matrix));
 
   result_matrix->width = matrix->width;
   result_matrix->height = matrix->height;
 
-  result_matrix->block_first_elts = (double*)malloc(result_matrix->width * result_matrix->height / (BLOCK_SIZE * BLOCK_SIZE) * sizeof(double));
-  result_matrix->block_mean_slope = (double*)malloc(result_matrix->width * result_matrix->height / (BLOCK_SIZE * BLOCK_SIZE) * sizeof(double));
-  result_matrix->compressed_values = (s_8*)malloc(result_matrix->width * result_matrix->height * COMPRESSED_VECTOR_SIZE / (BLOCK_SIZE * BLOCK_SIZE) * sizeof(s_8));
+  result_matrix->block_first_elts = (double*)blaz_malloc(result_matrix->width * result_matrix->height / (BLOCK_SIZE * BLOCK_SIZE) * sizeof(double));
+  result_matrix->block_mean_slope = (double*)blaz_malloc(result_matrix->width * result_matrix->height / (BLOCK_SIZE * BLOCK_SIZE) * sizeof(double));
+  result_matrix->compressed_values = (s_8*)blaz_malloc(result_matrix->width * result_matrix->height * COMPRESSED_VECTOR_SIZE / (BLOCK_SIZE * BLOCK_SIZE) * sizeof(s_8));
 
   for(i=0; i<result_matrix->width * result_matrix->height / (BLOCK_SIZE * BLOCK_SIZE); i++) {
     result_matrix->block_first_elts[i] = matrix->block_first_elts[i] * cst;
@@ -114,8 +114,8 @@ double block_dot_product_compressed(Blaz_Compressed_Matrix *matrix_1, Blaz_Compr
   double result, delta_1, delta_2;
   double *slope_block_1, *slope_block_2;
 
-  slope_block_1 = (double*)malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
-  slope_block_2 = (double*)malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
+  slope_block_1 = (double*)blaz_malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
+  slope_block_2 = (double*)blaz_malloc(BLOCK_SIZE * BLOCK_SIZE * sizeof(double));
 
   delta_1 = delta_2 = 0.0;
   result = matrix_1->block_first_elts[block_pos_1] * matrix_2->block_first_elts[block_pos_2] * BLOCK_SIZE;

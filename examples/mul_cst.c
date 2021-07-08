@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
 
   cst = 1.9;
 
-  matrix_1 = read_blaz_matrix(argv[1]);
+  matrix_1 = blaz_read_matrix(argv[1]);
 
   compressed_matrix_1 = blaz_compress(matrix_1);
 

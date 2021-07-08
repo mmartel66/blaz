@@ -27,10 +27,10 @@ Blaz_Matrix *blaz_add(Blaz_Matrix *matrix_1, Blaz_Matrix *matrix_2) {
   int i, j;
   Blaz_Matrix *result_matrix;
 
-  result_matrix = (Blaz_Matrix*)malloc(sizeof(Blaz_Matrix));
+  result_matrix = (Blaz_Matrix*)blaz_malloc(sizeof(Blaz_Matrix));
   result_matrix->width = matrix_1->width;
   result_matrix->height = matrix_1->height;
-  result_matrix->matrix = (double*)malloc(result_matrix->width * result_matrix->height * sizeof(double));
+  result_matrix->matrix = (double*)blaz_malloc(result_matrix->width * result_matrix->height * sizeof(double));
 
   for(i=0; i<result_matrix->height; i++) {
     for(j=0; j<result_matrix->width; j++) {
@@ -45,10 +45,10 @@ Blaz_Matrix *blaz_mul_cst(Blaz_Matrix *matrix, double cst) {
   int i, j;
   Blaz_Matrix *result_matrix;
 
-  result_matrix = (Blaz_Matrix*)malloc(sizeof(Blaz_Matrix));
+  result_matrix = (Blaz_Matrix*)blaz_malloc(sizeof(Blaz_Matrix));
   result_matrix->width = matrix->width;
   result_matrix->height = matrix->height;
-  result_matrix->matrix = (double*)malloc(result_matrix->width * result_matrix->height * sizeof(double));
+  result_matrix->matrix = (double*)blaz_malloc(result_matrix->width * result_matrix->height * sizeof(double));
 
   for(i=0; i<result_matrix->height; i++) {
     for(j=0; j<result_matrix->width; j++) {
@@ -77,8 +77,8 @@ Blaz_Matrix *blaz_matrix_mul(Blaz_Matrix *matrix_1, Blaz_Matrix *matrix_2) {
   int i,j;
   Blaz_Matrix *result_matrix;
 
-  result_matrix = (Blaz_Matrix*)malloc(sizeof(Blaz_Matrix));
-  result_matrix->matrix = (double*)malloc(matrix_1->height * matrix_2->width * sizeof(double));
+  result_matrix = (Blaz_Matrix*)blaz_malloc(sizeof(Blaz_Matrix));
+  result_matrix->matrix = (double*)blaz_malloc(matrix_1->height * matrix_2->width * sizeof(double));
 
   result_matrix->width = matrix_2->width;
   result_matrix->height = matrix_1->height;

@@ -38,8 +38,8 @@ int main(int argc, char **argv) {
   double abs_err2, rel_err2, e2, mean_rel_err2;
   int ia, ja, ir, jr;
 
-  matrix_1 = read_blaz_matrix(argv[1]);
-  matrix_2 = read_blaz_matrix(argv[2]);
+  matrix_1 = blaz_read_matrix(argv[1]);
+  matrix_2 = blaz_read_matrix(argv[2]);
 
   compressed_matrix_1 = blaz_compress(matrix_1);
   compressed_matrix_2 = blaz_compress(matrix_2);

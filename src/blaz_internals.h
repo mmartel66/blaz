@@ -8,14 +8,20 @@
  * @Link ........ : https://github.com/mmartel66/blaz.git
  ********************************************************/
 
-typedef signed short s_8;
+#include <stdio.h>
+#include <stdlib.h>
 
+
+typedef signed short s_8;
 
 #define POS(X,Y,WIDTH) (X + (Y) * WIDTH)
 
 #define BLOCK_SIZE 8
 
 #define COMPRESSED_VECTOR_SIZE 29
+
+
+void *blaz_malloc(int);
 
 
 double block_delta(double*, double*, int, int, int);
@@ -35,3 +41,8 @@ void idct(double*, s_8*, int);
 void quantize(double*, float*, int, int);
 
 void unquantize(float*, double*, int, int, int);
+
+
+void read_error(char*);
+
+void write_error(char*);
