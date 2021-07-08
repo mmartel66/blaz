@@ -26,7 +26,7 @@ LIBS = -lm
 CFLAGS := -I$(CURDIR)/src -O2
 
 
-OBJ = $(ODIR)/block_delta.o $(ODIR)/block_slope.o $(ODIR)/dct.o $(ODIR)/io.o $(ODIR)/compress.o $(ODIR)/operations.o $(ODIR)/compressed_operations.o
+OBJ = $(ODIR)/block_delta.o $(ODIR)/block_slope.o $(ODIR)/dct.o $(ODIR)/io.o $(ODIR)/compress.o $(ODIR)/operations.o $(ODIR)/compressed_operations.o $(ODIR)/errors.o
 
 OBJADD = $(OBJ) $(ODIR)/add.o
 OBJMULCST = $(OBJ) $(ODIR)/mul_cst.o
