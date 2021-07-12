@@ -91,7 +91,7 @@ double blaz_dot_product(Blaz_Matrix *matrix_1, Blaz_Matrix *matrix_2, int line, 
 }
 
 
-Blaz_Matrix *blaz_matrix_mul(Blaz_Matrix *matrix_1, Blaz_Matrix *matrix_2) {
+Blaz_Matrix *blaz_mul(Blaz_Matrix *matrix_1, Blaz_Matrix *matrix_2) {
   int i,j;
   Blaz_Matrix *result_matrix;
 

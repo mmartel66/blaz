@@ -69,4 +69,6 @@ double blaz_dot_product(Blaz_Matrix*, Blaz_Matrix*, int, int);
 double blaz_dot_product_compressed(Blaz_Compressed_Matrix*, Blaz_Compressed_Matrix*, int, int);
 
 
-Blaz_Matrix *blaz_matrix_mul(Blaz_Matrix*, Blaz_Matrix*);
+Blaz_Matrix *blaz_mul(Blaz_Matrix*, Blaz_Matrix*);
+
+Blaz_Compressed_Matrix *blaz_mul_compressed(Blaz_Compressed_Matrix*, Blaz_Compressed_Matrix*);

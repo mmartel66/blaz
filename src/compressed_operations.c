@@ -220,3 +220,23 @@ double blaz_dot_product_compressed(Blaz_Compressed_Matrix *matrix_1, Blaz_Compre
 
   return result;
 }
+
+
+Blaz_Compressed_Matrix *blaz_mul_compressed(Blaz_Compressed_Matrix *matrix_1, Blaz_Compressed_Matrix *matrix_2) {
+  int i, j, k;
+  Blaz_Matrix *matrix;
+
+  matrix = (Blaz_Matrix*)blaz_malloc(sizeof(Blaz_Matrix));
+  matrix->matrix = (double*)blaz_malloc(matrix_1->height * matrix_2->width * sizeof(double));
+
+  matrix->width = matrix_2->width;
+  matrix->height = matrix_1->height;
+
+  for(i=0; i<matrix_1->height; i++) {
+    for(j=0; j<matrix_2->width; j++) {
+      matrix->matrix[POS(j, i, matrix->width)] = blaz_dot_product_compressed(matrix_1, matrix_2, i, j);
+    }
+  }
+
+  return blaz_compress(matrix);
+}
