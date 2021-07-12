@@ -35,9 +35,3 @@ void write_error(char *file_name) {
   fprintf(stderr,"Blaz: Failed to write file %s\n",file_name);
   exit(0);
 }
-
-
-void malloc_error() {
-  fprintf(stderr,"Blaz: Failed to allocate memory\n");
-  exit(0);
-}

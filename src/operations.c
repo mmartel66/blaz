@@ -41,6 +41,24 @@ Blaz_Matrix *blaz_add(Blaz_Matrix *matrix_1, Blaz_Matrix *matrix_2) {
 }
 
 
+Blaz_Matrix *blaz_sub(Blaz_Matrix *matrix_1, Blaz_Matrix *matrix_2) {
+  int i, j;
+  Blaz_Matrix *result_matrix;
+
+  result_matrix = (Blaz_Matrix*)blaz_malloc(sizeof(Blaz_Matrix));
+  result_matrix->width = matrix_1->width;
+  result_matrix->height = matrix_1->height;
+  result_matrix->matrix = (double*)blaz_malloc(result_matrix->width * result_matrix->height * sizeof(double));
+
+  for(i=0; i<result_matrix->height; i++) {
+    for(j=0; j<result_matrix->width; j++) {
+      result_matrix->matrix[POS(j, i, result_matrix->width)] = matrix_1->matrix[POS(j, i, result_matrix->width)] - matrix_2->matrix[POS(j, i, result_matrix->width)];
+    }
+  }
+  return result_matrix;
+}
+
+
 Blaz_Matrix *blaz_mul_cst(Blaz_Matrix *matrix, double cst) {
   int i, j;
   Blaz_Matrix *result_matrix;

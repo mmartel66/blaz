@@ -3,7 +3,7 @@
  * @Name ........ : blaz.h
  * @Role ........ : interface of the blaz library
  * @Author ...... : Matthieu Martel
- * @Version ..... : V1.1 06/30/2021
+ * @Version ..... : V1.1 07/08/2021
  * @Licence ..... : GPL V3
  * @Link ........ : https://github.com/mmartel66/blaz.git
  ********************************************************/
@@ -29,6 +29,11 @@ double blaz_get_matrix_elt(Blaz_Matrix*, int, int);
 void blaz_set_matrix_elt(Blaz_Matrix*, double, int, int);
 
 
+double blaz_get_compressed_matrix_elt(Blaz_Compressed_Matrix*, int, int);
+
+void blaz_set_compressed_matrix_elt(Blaz_Compressed_Matrix*, double, int, int);
+
+
 Blaz_Matrix *blaz_read_matrix(char*);
 
 void blaz_write_matrix(char *, Blaz_Matrix*);
@@ -47,6 +52,11 @@ Blaz_Matrix* blaz_uncompress(Blaz_Compressed_Matrix*);
 Blaz_Matrix *blaz_add(Blaz_Matrix*, Blaz_Matrix*);
 
 Blaz_Compressed_Matrix *blaz_add_compressed(Blaz_Compressed_Matrix*, Blaz_Compressed_Matrix*);
+
+
+Blaz_Matrix *blaz_sub(Blaz_Matrix*, Blaz_Matrix*);
+
+Blaz_Compressed_Matrix *blaz_sub_compressed(Blaz_Compressed_Matrix*, Blaz_Compressed_Matrix*);
 
 
 Blaz_Matrix *blaz_mul_cst(Blaz_Matrix*, double);
