@@ -1,4 +1,3 @@
-[Logo](http://francky.me/images/quora001.png)
 
 Blaz 1.1
 Written by Matthieu Martel (matthieu.martel@univ-perp.fr)
