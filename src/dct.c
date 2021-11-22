@@ -15,7 +15,7 @@
 #include <float.h>
 #include <blaz.h>
 
-double dct_coef[64] = {
+const double dct_coef[64] = {
                         0.3535534, 0.3535534, 0.3535534, 0.3535534, 0.3535534, 0.3535534, 0.3535534, 0.3535534,
                         0.490393, 0.415735, 0.277785, 0.0975452, -0.0975452, -0.277785, -0.415735, -0.490393,
                         0.46194, 0.191342, -0.191342, -0.46194, -0.46194, -0.191342, 0.191342, 0.46194,
@@ -26,7 +26,7 @@ double dct_coef[64] = {
                         0.0975452, -0.277785, 0.415735, -0.490393, 0.490393, -0.415735, 0.277785, -0.0975452
                       };
 
-double dct_coef_transpose[64] = {
+const double dct_coef_transpose[64] = {
                         0.353553, 0.490393, 0.461940, 0.415735, 0.353553, 0.277785, 0.191342, 0.097545,
                         0.353553, 0.415735, 0.191342, -0.097545, -0.353553, -0.490393, -0.461940, -0.277785,
                         0.353553, 0.277785, -0.191342, -0.490393, -0.353553, 0.097545, 0.461940, 0.415735,
@@ -97,6 +97,9 @@ void dct_matrix_block_multiply(double *block, double *matrix, s_8 *quantize_vect
     quantize_vector[offset+i+17] = result_block[POS(0, i+2, BLOCK_SIZE)];
     quantize_vector[offset+i+23] = result_block[POS(1, i+2, BLOCK_SIZE)];
   }
+
+  free(tmp_block);
+  free(result_block);
 }
 
 
@@ -133,15 +136,18 @@ double *idct_matrix_block_multiply(double *block, double *matrix, double *result
 
 
 void dct(double *matrix, s_8 *quantized_vector, int offset) {
-  double *block_1;
+  double *block_0;
 
-  block_1 = dct_block_matrix_multiply(dct_coef, matrix);
-  dct_matrix_block_multiply(dct_coef_transpose, block_1, quantized_vector, offset);
+  block_0 = dct_block_matrix_multiply(dct_coef, matrix);
+
+  dct_matrix_block_multiply(dct_coef_transpose, block_0, quantized_vector, offset);
+
+  free(block_0);
 }
 
 
 void idct(double *matrix, s_8 *quantized_vector, int offset) {
-  double * block_0, *block_1, *block_2;
+  double * block_0, *block_1;
   double quantize_coef;
   int i, j, k;
 
@@ -172,4 +178,7 @@ void idct(double *matrix, s_8 *quantized_vector, int offset) {
 
   idct_block_matrix_multiply(dct_coef_transpose, block_0, block_1, quantize_coef);
   idct_matrix_block_multiply(dct_coef, block_1, matrix);
+
+  free(block_0);
+  free(block_1);
 }

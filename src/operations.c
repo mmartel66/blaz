@@ -82,7 +82,6 @@ double blaz_dot_product(Blaz_Matrix *matrix_1, Blaz_Matrix *matrix_2, int line, 
   double result;
 
   result = 0.0;
-
   for(i=0; i<matrix_1->width; i++) {
       result += matrix_1->matrix[POS(i, line, matrix_1->width)] * matrix_2->matrix[POS(column, i, matrix_2->width)];
   }

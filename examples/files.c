@@ -33,9 +33,7 @@ int main(int argc, char **argv) {
 
   for(i=0; i<uncompressed_matrix->height; i++) {
     for(j=0; j<uncompressed_matrix->width; j++) {
-      if(uncompressed_matrix->matrix[POS(j, i, uncompressed_matrix->width)] != matrix->matrix[POS(j, i, uncompressed_matrix->width)]) {
-        printf("(%d,%d): %f %f\n", j, i, matrix->matrix[POS(j, i, uncompressed_matrix->width)], uncompressed_matrix->matrix[POS(j, i, uncompressed_matrix->width)]);
-      }
+      printf("%f %f %f\n", 0.1*j, 0.1*i, uncompressed_matrix->matrix[POS(j, i, uncompressed_matrix->width)]);
     }
   }
 }

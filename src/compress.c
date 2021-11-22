@@ -40,6 +40,9 @@ Blaz_Compressed_Matrix *blaz_compress(Blaz_Matrix *matrix) {
     }
   }
 
+  free(delta_block);
+  free(slope_block);
+
   return result_matrix;
 }
 
@@ -68,6 +71,9 @@ Blaz_Matrix *blaz_uncompress(Blaz_Compressed_Matrix *compressed_matrix) {
       l += COMPRESSED_VECTOR_SIZE;
     }
   }
+
+  free(delta_block);
+  free(slope_block);
 
   return matrix;
 }

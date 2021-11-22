@@ -97,16 +97,3 @@ int main(int argc, char **argv) {
   printf("Worst relative error: %f (%d,%d) original=%f compressed=%f\n", rel_err, jr ,ir, result_matrix->matrix[POS(jr,ir,result_matrix->width)], uncompressed_result_matrix->matrix[POS(jr,ir,result_matrix->width)]);
   printf("Mean relative error: %f\n", mean_rel_err);
 }
-
-/*
-
-set grid
-set view 60,320
-set xtics font ",11"
-set ytics font ",11"
-set ztics font ",11"
-set ytics offset 4
-set xtics offset -4
-splot 'ddd' with points pointtype 7 lc rgb "#ff7c00" title "Original", 'ccc' with points pointtype 7 lc rgb "#53ae32" title "Compressed/Uncompressed"
-
-*/

@@ -23,7 +23,7 @@ EXDIR = $(CURDIR)/examples
 
 LIBS = -lm
 
-CFLAGS := -I$(CURDIR)/src -O2
+CFLAGS := -I$(CURDIR)/src -O3
 
 
 OBJ = $(ODIR)/block_delta.o $(ODIR)/block_slope.o $(ODIR)/dct.o $(ODIR)/io.o $(ODIR)/compress.o $(ODIR)/operations.o $(ODIR)/compressed_operations.o $(ODIR)/errors.o
@@ -35,6 +35,7 @@ OBJSUB = $(OBJ) $(ODIR)/sub.o
 OBJMULCST = $(OBJ) $(ODIR)/mul_cst.o
 OBJDOTPROD = $(OBJ) $(ODIR)/dot_product.o
 OBJFILES = $(OBJ) $(ODIR)/files.o
+OBJTEST = $(OBJ) $(ODIR)/testop.o
 
 
 get_set: $(OBJGSET)
@@ -53,6 +54,9 @@ dot_product: $(OBJDOTPROD)
 		$(CC) -o $(BINDIR)/$@ $^ $(CFLAGS) $(LIBS)
 
 files: $(OBJFILES)
+		$(CC) -o $(BINDIR)/$@ $^ $(CFLAGS) $(LIBS)
+
+test: $(OBJTEST)
 		$(CC) -o $(BINDIR)/$@ $^ $(CFLAGS) $(LIBS)
 
 
@@ -77,9 +81,11 @@ $(ODIR)/dot_product.o: $(EXDIR)/dot_product.c
 $(ODIR)/files.o: $(EXDIR)/files.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
+$(ODIR)/testop.o: $(EXDIR)/testop.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(ODIR)/*.o
 	rm -rf $(BINDIR)/*
 
-all: clean get_set add sub mul_cst dot_product files
+all: clean get_set add sub mul_cst dot_product files test

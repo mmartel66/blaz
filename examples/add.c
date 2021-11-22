@@ -8,7 +8,7 @@
                     uncompressed matrices and the addition of
                     corresponding compressed matrices.
  * @Author ...... : Matthieu Martel
- * @Version ..... : V1.1 06/30/2021
+ * @Version ..... : V1.1 22/11/2021
  * @Licence ..... : GPL V3
  * @Link ........ : https://github.com/mmartel66/blaz.git
  ********************************************************/
@@ -55,7 +55,6 @@ int main(int argc, char **argv) {
 
   for(i=0; i<result_matrix->height; i++) {
     for(j=0; j<result_matrix->width; j++) {
-      printf("%f %f %f\n",0.1 * (double)j, 0.1 * (double)i, result_matrix->matrix[POS(j,i,result_matrix->width)]);
 
       e = fabs(result_matrix->matrix[POS(j,i,result_matrix->width)] - uncompressed_result_matrix->matrix[POS(j,i,result_matrix->width)]);
       if (e > abs_err) { abs_err = e; ia = i; ja = j; };
@@ -96,17 +95,10 @@ int main(int argc, char **argv) {
   printf("Worst absolute error: %f (%d,%d) original=%f compressed=%f\n", abs_err, ja, ia, result_matrix->matrix[POS(ja,ia,result_matrix->width)], uncompressed_result_matrix->matrix[POS(ja,ia,result_matrix->width)]);
   printf("Worst relative error: %f (%d,%d) original=%f compressed=%f\n", rel_err, jr ,ir, result_matrix->matrix[POS(jr,ir,result_matrix->width)], uncompressed_result_matrix->matrix[POS(jr,ir,result_matrix->width)]);
   printf("Mean relative error: %f\n", mean_rel_err);
+
+  for(i=0; i<uncompressed_result_matrix->height; i++) {
+    for(j=0; j<uncompressed_result_matrix->width; j++) {
+      printf("%f %f %f\n", 0.1*j, 0.1*i, uncompressed_result_matrix->matrix[POS(j, i, uncompressed_result_matrix->width)]);
+    }
+  }
 }
-
-/*
-
-set grid
-set view 60,320
-set xtics font ",11"
-set ytics font ",11"
-set ztics font ",11"
-set ytics offset 4
-set xtics offset -4
-splot 'ddd' with points pointtype 7 lc rgb "#ff7c00" title "Original", 'ccc' with points pointtype 7 lc rgb "#53ae32" title "Compressed/Uncompressed"
-
-*/
