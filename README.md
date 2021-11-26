@@ -1,6 +1,7 @@
 
-Blaz 1.1
-Written by Matthieu Martel (matthieu.martel@univ-perp.fr)
+# Blaz 1.1
+# Written by Matthieu Martel (matthieu.martel@univ-perp.fr)
+![blaz](https://github.com/mmartel66/blaz/blob/master/blaz-logo.png)
 
 Blaz is a library for frugal matrix computations. Blaz provides
 compression/uncompression functions for matrices of floating-point
