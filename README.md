@@ -13,6 +13,8 @@ compressed matrices, without uncompressing them.
 
 The interface is given in the file blaz.h
 
+More details in https://arxiv.org/abs/2202.13007
+
 *** INSTALL:
 To compile, run "make all" in the blaz parent directory.
 
